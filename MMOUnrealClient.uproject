@@ -1,0 +1,42 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.24",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "MMOUnrealClient",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"Engine",
+				"UMG",
+				"CoreUObject"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "UE4EditorCustomize",
+			"Enabled": true,
+			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/0d22d9af59624886a6fccd9573fefa90"
+		},
+		{
+			"Name": "OceanPlugin",
+			"Enabled": true
+		}
+	],
+	"PreBuildSteps":
+	{
+		"Win32": [
+			"echo Updating build version info.",
+			"powershell -Command \"SET PROJECT_DIR $(ProjectDir); (gc $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h) -replace '(VersionRevision = )(.*)', ('VersionRevision = '+ $(git --git-dir $PROJECT_DIR\\.git rev-list --count HEAD)+';') | Out-File $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h\"",
+			"echo Updating build branch info.",
+			"powershell -Command \"SET PROJECT_DIR $(ProjectDir); (gc $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h) -replace '(VersionBranch = )(.*)', ('VersionBranch = \\\"'+ $(git --git-dir $PROJECT_DIR\\.git rev-parse --abbrev-ref HEAD) + '\\\";') | Out-File $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h\"",
+			"echo Updating tag version info",
+			"powershell -Command \"SET PROJECT_DIR $(ProjectDir); (gc $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h) -replace '(Version = )(.*)', ('Version = \\\"' + $(git --git-dir $PROJECT_DIR\\.git describe --abbrev=0 --tags) + '\\\";') | Out-File $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h\"",
+			"echo Updating build time",
+			"powershell -Command \"SET bt $(get-date).tostring(\\\"dd.MM.yyyy HH:mm:ss\\\"); (gc $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h) -replace '(VersionTime = )(.*)', ('VersionTime = \\\"' + $($bt) + '\\\";') | Out-File $(ProjectDir)\\Source\\MMOUnrealClient\\Config\\VersionInfo.h\""
+		]
+	}
+}

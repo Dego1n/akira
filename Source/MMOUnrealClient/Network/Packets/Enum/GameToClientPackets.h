@@ -1,0 +1,42 @@
+	#pragma once
+
+#include "CoreMinimal.h"
+
+/**
+ * @author Dego1n
+ */
+class MMOUNREALCLIENT_API GameToClientPackets
+{
+public:
+	enum Packet
+	{
+		CHARACTER_LIST = 0x02,
+		CHARACTER_SELECTED_OK = 0x03,
+		MOVE_ACTOR_TO_LOCATION = 0x05,
+		USER_INFO = 0x06,
+		PLAYABLE_ACTOR_INFO = 0x07,
+		DESTROY_ACTOR = 0x08,
+		ACTOR_INFO = 0x09,
+		TARGET_SELECTED = 0x0a,
+		Dialog = 0x0b,
+		MOVE_TO_PAWN = 0x0c,
+		STOP_MOVING = 0x0d,
+		ATTACK = 0x0e,
+		SYSTEM_MESSAGE = 0x0f,
+		ACTOR_SAY = 0x10,
+		ACTOR_DIED = 0x11,
+		INVENTORY = 0x12,
+		ABILITIES_LIST = 0x13,
+		USE_ABILITY = 0x14,
+		BUYLIST = 0x15,
+		STATUS_INFO = 0x16,
+		STATE_INFO = 0x22,
+		PC_ACTOR_INFO = 0x23,
+		DEBUG_DRAW_SPHERE = 0x24,
+		LOOT_DATA_UPDATED = 0x25,
+		SPECIAL_ACTOR_INFO = 0x26,
+		ACQUIRE_SKILL_LIST = 0x27,
+		QUEST_LIST = 0x28,
+		PLAY_SOUND = 0x29
+	};
+};

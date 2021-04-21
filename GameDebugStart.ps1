@@ -1,0 +1,1 @@
+F:\ue_engines\UE_4.24\Engine\Binaries\Win64\UE4Editor.exe "$((Get-Item -Path ".\").FullName)/MMOUnrealClient.uproject" -game --login=playtest --password=awesome --server_id=0 --character_id=1
