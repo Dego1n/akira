@@ -60,7 +60,7 @@ void AGameActor::BeginPlay()
 	actorNameWidget->SetOwnerPlayer(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetLocalPlayer());
 	//Показываем
 	actorNameWidget->SetVisibility(true);
-	actorNameWidget->bVisible = true;
+	//actorNameWidget->bVisible = true;
 	//Атачим к мешу актора
 	//TODO:Скорее всего из-за имя разворачивается вместе с Mesh. По-этому такие прыжки при развороте камеры.
 	actorNameWidget->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform);
@@ -78,7 +78,7 @@ void AGameActor::BeginPlay()
 	actorTitleWidget->SetOwnerPlayer(UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetLocalPlayer());
 	//Показываем
 	actorTitleWidget->SetVisibility(true);
-	actorTitleWidget->bVisible = true;
+	//actorTitleWidget->bVisible = true;
 	//Атачим к мешу актора
 	//TODO:Скорее всего из-за имя разворачивается вместе с Mesh. По-этому такие прыжки при развороте камеры.
 	actorTitleWidget->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform);
