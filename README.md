@@ -12,7 +12,7 @@ And finally you can `git clone` this repository.
 After cloning process will be done, git-lfs will start to download large binaries from remote server. Git will ask you for http basic auth. You can find credentials in a confluence.
 
 If there are errors during lfs pull process then you need to repeat `git lfs fetch` and `git lfs checkout` until errors are gone.
-After all of this make sure you are on develop branch (`git checkout -f developp`) because after errors during clone your files might be untracked.
+After all of this make sure you are on develop branch (`git checkout -f develop`) because after errors during clone your files might be untracked.
 
 # Required software
 * Unreal Engine 4.26
