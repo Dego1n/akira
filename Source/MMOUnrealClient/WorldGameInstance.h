@@ -75,9 +75,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Instance Widgets")
 	TSubclassOf<class UUserWidget> QuestWindowWidget;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Game Instance Widgets")
-	TSubclassOf<class UUserWidget> LoadingScreenWidget;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Created Widgets")
 	UBaseCharacterStatusWidget* characterStatusWidget;
 

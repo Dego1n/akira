@@ -7,13 +7,13 @@
 
 /**
  * @author Dego1n
- * Тред для общения с сервером авторизации, доступ к треду можно получить через синглтон
+ * РўСЂРµРґ РґР»СЏ РѕР±С‰РµРЅРёСЏ СЃ СЃРµСЂРІРµСЂРѕРј Р°РІС‚РѕСЂРёР·Р°С†РёРё, РґРѕСЃС‚СѓРї Рє С‚СЂРµРґСѓ РјРѕР¶РЅРѕ РїРѕР»СѓС‡РёС‚СЊ С‡РµСЂРµР· СЃРёРЅРіР»С‚РѕРЅ
  */
 GameSocketThread* GameSocketThread::Runnable = NULL;
 
 
 /**
- * Конструктор, создает объект треда
+ * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ, СЃРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ С‚СЂРµРґР°
  */
 GameSocketThread::GameSocketThread(int32 game_session_key, FString server_address, int32 server_port, UWorld* world)
 {
@@ -21,12 +21,12 @@ GameSocketThread::GameSocketThread(int32 game_session_key, FString server_addres
 	this->world = world;
 	this->address = server_address;
 	this->port = server_port;
-	Thread = FRunnableThread::Create(this, TEXT("AuthSocketThread"), 0, TPri_BelowNormal); //TODO: Винда по умолчанию выделяет 8мб под тред, возможно можно и нужно выделить больше
+	Thread = FRunnableThread::Create(this, TEXT("AuthSocketThread"), 0, TPri_BelowNormal); //TODO: Р’РёРЅРґР° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РІС‹РґРµР»СЏРµС‚ 8РјР± РїРѕРґ С‚СЂРµРґ, РІРѕР·РјРѕР¶РЅРѕ РјРѕР¶РЅРѕ Рё РЅСѓР¶РЅРѕ РІС‹РґРµР»РёС‚СЊ Р±РѕР»СЊС€Рµ
 }
 
 
 /**
- * Деструктор, на всякий случай затираем тред
+ * Р”РµСЃС‚СЂСѓРєС‚РѕСЂ, РЅР° РІСЃСЏРєРёР№ СЃР»СѓС‡Р°Р№ Р·Р°С‚РёСЂР°РµРј С‚СЂРµРґ
  */
 GameSocketThread::~GameSocketThread()
 {
@@ -52,19 +52,19 @@ uint32 GameSocketThread::Run()
 	{
 		FPlatformProcess::Sleep(0.03);
 		uint8 * packet_size = new uint8[2];
-		int16 actual_packet_size; //TODO: поменять на int16 или uint16?
+		int16 actual_packet_size; //TODO: РїРѕРјРµРЅСЏС‚СЊ РЅР° int16 РёР»Рё uint16?
 
 		int32 bytes_read;
 
 		uint8 * received_packet;
 		try {
-			GameSocket->tcp_socket->Recv(packet_size, 2, bytes_read); //Читаем 2 байта, чтобы узнать размер следующего пакета
+			GameSocket->tcp_socket->Recv(packet_size, 2, bytes_read); //Р§РёС‚Р°РµРј 2 Р±Р°Р№С‚Р°, С‡С‚РѕР±С‹ СѓР·РЅР°С‚СЊ СЂР°Р·РјРµСЂ СЃР»РµРґСѓСЋС‰РµРіРѕ РїР°РєРµС‚Р°
 
-			actual_packet_size = (((packet_size[1] & 0xFF) << 8) | (packet_size[0] & 0xFF)); //конвертим размер пакета в шорт
+			actual_packet_size = (((packet_size[1] & 0xFF) << 8) | (packet_size[0] & 0xFF)); //РєРѕРЅРІРµСЂС‚РёРј СЂР°Р·РјРµСЂ РїР°РєРµС‚Р° РІ С€РѕСЂС‚
 
-			if (actual_packet_size < 2) //Обычно такое происходит когда коннект с сервером оборвался
+			if (actual_packet_size < 2) //РћР±С‹С‡РЅРѕ С‚Р°РєРѕРµ РїСЂРѕРёСЃС…РѕРґРёС‚ РєРѕРіРґР° РєРѕРЅРЅРµРєС‚ СЃ СЃРµСЂРІРµСЂРѕРј РѕР±РѕСЂРІР°Р»СЃСЏ
 			{
-				throw "Packet size < 2!"; //TODO: выдывать на экран сообщение о системной ошибке
+				throw "Packet size < 2!"; //TODO: РІС‹РґС‹РІР°С‚СЊ РЅР° СЌРєСЂР°РЅ СЃРѕРѕР±С‰РµРЅРёРµ Рѕ СЃРёСЃС‚РµРјРЅРѕР№ РѕС€РёР±РєРµ
 			}
 
 			received_packet = new uint8[actual_packet_size - 2];
@@ -78,33 +78,33 @@ uint32 GameSocketThread::Run()
 		}
 
 
-		int16 packetId = (((received_packet[1] & 0xFF) << 8) | (received_packet[0] & 0xFF)); //Вытаскиваем ID пакета для хендлера //TODO: поменять на int16 или uint16?
+		int16 packetId = (((received_packet[1] & 0xFF) << 8) | (received_packet[0] & 0xFF)); //Р’С‹С‚Р°СЃРєРёРІР°РµРј ID РїР°РєРµС‚Р° РґР»СЏ С…РµРЅРґР»РµСЂР° //TODO: РїРѕРјРµРЅСЏС‚СЊ РЅР° int16 РёР»Рё uint16?
 
 		/**
-		 * Java сервер отправляет нам пакет в формате byte (аналог C++ - int8 (-128 - 128)), а сокет принимает его в массив uint8 (0-255).
-		 * Пришлось поебаться нихуево, но это лучшее что пока придумал. А вообще... я в рот ебал этот C++
+		 * Java СЃРµСЂРІРµСЂ РѕС‚РїСЂР°РІР»СЏРµС‚ РЅР°Рј РїР°РєРµС‚ РІ С„РѕСЂРјР°С‚Рµ byte (Р°РЅР°Р»РѕРі C++ - int8 (-128 - 128)), Р° СЃРѕРєРµС‚ РїСЂРёРЅРёРјР°РµС‚ РµРіРѕ РІ РјР°СЃСЃРёРІ uint8 (0-255).
+		 * РџСЂРёС€Р»РѕСЃСЊ РїРѕРµР±Р°С‚СЊСЃСЏ РЅРёС…СѓРµРІРѕ, РЅРѕ СЌС‚Рѕ Р»СѓС‡С€РµРµ С‡С‚Рѕ РїРѕРєР° РїСЂРёРґСѓРјР°Р». Рђ РІРѕРѕР±С‰Рµ... СЏ РІ СЂРѕС‚ РµР±Р°Р» СЌС‚РѕС‚ C++
 		 */
 		TArray<int8> convertedPacket;
 		for (int32 i = 0; i <= actual_packet_size - 2; i++)
 		{
-			convertedPacket.Add(received_packet[i] << 24 >> 24); //Не, ну за это сразу бан нахуй... ПЕРЕВОД С UINT8 В INT8
+			convertedPacket.Add(received_packet[i] << 24 >> 24); //РќРµ, РЅСѓ Р·Р° СЌС‚Рѕ СЃСЂР°Р·Сѓ Р±Р°РЅ РЅР°С…СѓР№... РџР•Р Р•Р’РћР” РЎ UINT8 Р’ INT8
 		}
 
 		GamePacketsHandler::Handle(packetId, convertedPacket);
-		//AuthPacketsHandler::Handle(packetId, convertedPacket); //Отдаем пакет хендлер для дальнейшей черной магии
+		//AuthPacketsHandler::Handle(packetId, convertedPacket); //РћС‚РґР°РµРј РїР°РєРµС‚ С…РµРЅРґР»РµСЂ РґР»СЏ РґР°Р»СЊРЅРµР№С€РµР№ С‡РµСЂРЅРѕР№ РјР°РіРёРё
 	}
 	return 0;
 }
 
 
 /**
- * Отправка пакета на игровой сервер
+ * РћС‚РїСЂР°РІРєР° РїР°РєРµС‚Р° РЅР° РёРіСЂРѕРІРѕР№ СЃРµСЂРІРµСЂ
  */
 void GameSocketThread::SendPacket(AbstractSendablePacket* packet)
 {
-	if (Runnable->GameSocket->tcp_socket == nullptr) //Проверка что есть коннект с сокетом
+	if (Runnable->GameSocket->tcp_socket == nullptr) //РџСЂРѕРІРµСЂРєР° С‡С‚Рѕ РµСЃС‚СЊ РєРѕРЅРЅРµРєС‚ СЃ СЃРѕРєРµС‚РѕРј
 	{
-		GLog->Log("Cant send packet, not connected to a socket"); //TODO: Выводить не в лог, а сообщение клиенту о системной ошибке
+		GLog->Log("Cant send packet, not connected to a socket"); //TODO: Р’С‹РІРѕРґРёС‚СЊ РЅРµ РІ Р»РѕРі, Р° СЃРѕРѕР±С‰РµРЅРёРµ РєР»РёРµРЅС‚Сѓ Рѕ СЃРёСЃС‚РµРјРЅРѕР№ РѕС€РёР±РєРµ
 		return;
 	}
 
@@ -116,7 +116,7 @@ void GameSocketThread::SendPacket(AbstractSendablePacket* packet)
 }
 
 /**
- * Здесь создаем тред
+ * Р—РґРµСЃСЊ СЃРѕР·РґР°РµРј С‚СЂРµРґ
  */
 GameSocketThread * GameSocketThread::StartConnectionThread(int32 game_session_key, FString server_address, int32 server_port, UWorld* world)
 {
@@ -151,7 +151,7 @@ void GameSocketThread::CharacterSelectedOk()
 
 
 /**
- * Здесь мы завершаем коннект с сервером и удаляем тред
+ * Р—РґРµСЃСЊ РјС‹ Р·Р°РІРµСЂС€Р°РµРј РєРѕРЅРЅРµРєС‚ СЃ СЃРµСЂРІРµСЂРѕРј Рё СѓРґР°Р»СЏРµРј С‚СЂРµРґ
  */
 void GameSocketThread::Stop()
 {

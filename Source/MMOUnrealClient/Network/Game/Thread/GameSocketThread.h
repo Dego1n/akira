@@ -11,7 +11,7 @@
 
 /**
  * @author Dego1n
- * Тред для чтения пакетов из игрового сокета.
+ * РўСЂРµРґ РґР»СЏ С‡С‚РµРЅРёСЏ РїР°РєРµС‚РѕРІ РёР· РёРіСЂРѕРІРѕРіРѕ СЃРѕРєРµС‚Р°.
  */
 class MMOUNREALCLIENT_API GameSocketThread : public FRunnable
 {

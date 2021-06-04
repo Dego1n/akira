@@ -21,7 +21,6 @@ void UWorldGameInstance::WorldLevelLoaded(UObject* WorldContextObject)
 	if(GameSocketThread::Runnable != nullptr)
 	{
 		GameSocketThread::Runnable->world = GetWorld();
-		//GEngine->BlockTillLevelStreamingCompleted(GetWorld());
 		GameSocketThread::Runnable->SendPacket(new EnterWorld());
 	}
 }
@@ -53,27 +52,17 @@ void UWorldGameInstance::Init()
 
 void UWorldGameInstance::BeginLoadingScreen(const FString& InMapName)
 {
-	if (InMapName.Contains("GameWorld"))
-	{
-		UE_LOG(LogTemp, Error, TEXT("%s"), *InMapName);
-		UE_LOG(LogTemp, Error, TEXT("BEGIN LOADING SCREEN"));
-		UUserWidget* loadingScreenWidget = CreateWidget<UUserWidget>(GetWorld(), LoadingScreenWidget);
-		FLoadingScreenAttributes LoadingScreen;
-		LoadingScreen.WidgetLoadingScreen = loadingScreenWidget->TakeWidget();
-
-		LoadingScreen.bAutoCompleteWhenLoadingCompletes = true;
-		LoadingScreen.MinimumLoadingScreenDisplayTime = 6000;
-		LoadingScreen.bMoviesAreSkippable = false;
-		LoadingScreen.bWaitForManualStop = false;
-		LoadingScreen.bAllowEngineTick = true;
-
-		GetMoviePlayer()->SetupLoadingScreen(LoadingScreen);
-		GetMoviePlayer()->PlayMovie();
-	}
+		FLoadingScreenAttributes* LoadingScreen = new FLoadingScreenAttributes();
+		LoadingScreen->WidgetLoadingScreen = FLoadingScreenAttributes::NewTestLoadingScreenWidget();
+		LoadingScreen->bAutoCompleteWhenLoadingCompletes = true;
+		LoadingScreen->MinimumLoadingScreenDisplayTime = 0;
+		LoadingScreen->bMoviesAreSkippable = false;
+		LoadingScreen->bWaitForManualStop = false;
+		LoadingScreen->bAllowEngineTick = true;
+		GetMoviePlayer()->SetupLoadingScreen(*LoadingScreen);
 }
 
 void UWorldGameInstance::EndLoadingScreen(UWorld* InLoadedWorld)
 {
-	UE_LOG(LogTemp, Error, TEXT("END LOADING SCREEN"));
-	GetMoviePlayer()->StopMovie();
+	
 }
