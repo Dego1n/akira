@@ -654,10 +654,10 @@ void APlayableCharacter::EventLeftMouseButton()
 	UGameplayStatics::GetPlayerController(GetWorld(), 0)->GetHitResultUnderCursorForObjects(queries,true,hitResults);
 
 	//Если нашли цель и она AGameActor
-	if(hitResults.Actor != nullptr && hitResults.Actor->GetClass()->IsChildOf(AGameActor::StaticClass()))
+	if(hitResults.GetActor() != nullptr && hitResults.GetActor()->GetClass()->IsChildOf(AGameActor::StaticClass()))
 	{
 		//Вытаскиваем цель
-		AGameActor* actorResult = Cast<AGameActor>(hitResults.Actor);
+		AGameActor* actorResult = Cast<AGameActor>(hitResults.GetActor());
 
 		if(target == actorResult && !actorResult->isFriendly && !actorResult->isDead && !isShiftPressed) //Если цель NPC, не дружелюбна и не мертва - просим сервер атаковать
 		{

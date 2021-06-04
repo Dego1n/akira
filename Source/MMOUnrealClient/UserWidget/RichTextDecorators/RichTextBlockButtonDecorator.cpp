@@ -39,7 +39,7 @@ public:
 					.Stretch(EStretch::Fill)
 					[
 						SNew(SButton)
-						.OnClicked_Lambda([objectId,ref] ()->FReply{GameSocketThread::Runnable->character->GetDialog(FCString::Atoi(**objectId),*ref); return FReply::Handled();})
+						.OnClicked(this, &SRichButton::OnChatDialogClicked, *objectId, *ref)
 						.HAlign(HAlign_Fill)
 						.Text(buttonText)
 						.VAlign(VAlign_Center)
@@ -63,7 +63,7 @@ public:
 					.Stretch(EStretch::Fill)
 				[
 					SNew(SButton)
-					.OnClicked_Lambda([objectId, questId, ref]()->FReply {GameSocketThread::Runnable->character->OnQuestTalk(FCString::Atoi(**objectId), FCString::Atoi(**questId), *ref); return FReply::Handled(); })
+					.OnClicked(this, &SRichButton::OnQuestTalk, *objectId, *questId, *ref)
 				.HAlign(HAlign_Fill)
 				.Text(buttonText)
 				.VAlign(VAlign_Center)
@@ -75,6 +75,18 @@ public:
 	void onRichButtonClick(TMap<FString,FString> metadata)
 	{
 
+	}
+
+	FReply OnChatDialogClicked(FString objectId, FString ref)
+	{
+		GameSocketThread::Runnable->character->GetDialog(FCString::Atoi(*objectId),*ref);
+		return FReply::Handled();
+	}
+	
+	FReply OnQuestTalk(FString objectId, FString questId, FString ref)
+	{
+		GameSocketThread::Runnable->character->OnQuestTalk(FCString::Atoi(*objectId), FCString::Atoi(*questId), *ref);
+		return FReply::Handled();
 	}
 };
 
