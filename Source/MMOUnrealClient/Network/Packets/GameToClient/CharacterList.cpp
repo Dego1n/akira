@@ -27,7 +27,7 @@ void CharacterList::Handle()
 	{
 		APlayableCharacter* character = NewObject<APlayableCharacter>();
 		
-		character->id = ReadD();
+		character->character_id = ReadS();
 		character->name = ReadS();
 
 		FVector location;

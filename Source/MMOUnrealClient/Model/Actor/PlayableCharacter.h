@@ -129,6 +129,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "PlayableCharacter")
 	FString GetCharacterClassName(int32 chracterClass);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayableCharacter")
+	FString character_id;
+
 	TArray<FAbility> characterAbilities;
 	TArray<FInventoryItem> inventoryItems;
 	TArray<FQuestProgression> quests;

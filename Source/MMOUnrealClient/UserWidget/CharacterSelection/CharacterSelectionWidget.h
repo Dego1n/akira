@@ -19,5 +19,5 @@ class UCharacterSelectionWidget : public UUserWidget
 	TArray<APlayableCharacter*> GetAvailableCharacterList();
 
 	UFUNCTION(BlueprintCallable, Category = "Character Selection")
-	void RequestCharacterSelected(int32 id);
+	void RequestCharacterSelected(FString id);
 };

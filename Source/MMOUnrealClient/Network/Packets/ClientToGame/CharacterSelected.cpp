@@ -4,7 +4,7 @@
 /**
  * @author Dego1n
  */
-CharacterSelected::CharacterSelected(int32 id)
+CharacterSelected::CharacterSelected(FString id)
 {
 #if !UE_BUILD_SHIPPING
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("[Client -> Game] CharacterSelected"));
@@ -19,5 +19,5 @@ void CharacterSelected::Build()
 {
 	WriteH(ClientToGamePackets::Packet::CHARACTER_SELECTED);
 
-	WriteD(selected_character_id);
+	WriteS(selected_character_id);
 }

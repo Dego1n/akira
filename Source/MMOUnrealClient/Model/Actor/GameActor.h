@@ -69,7 +69,7 @@ public:
 	UStaticMeshComponent* rightHand;
 
 
-	//Переместить это в отдельный класс
+	//РџРµСЂРµРјРµСЃС‚РёС‚СЊ СЌС‚Рѕ РІ РѕС‚РґРµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ
 	TArray<FString> attack1HandMontages;
 	TArray<FString> dieMontages;
 	TArray<FString> skillMontages;

@@ -9,8 +9,8 @@
 class MMOUNREALCLIENT_API CharacterSelected : public AbstractSendablePacket
 {
 private:
-	int32 selected_character_id;
+	FString selected_character_id;
 public:
-	CharacterSelected(int32 id);
+	CharacterSelected(FString id);
 	void Build() override;
 };

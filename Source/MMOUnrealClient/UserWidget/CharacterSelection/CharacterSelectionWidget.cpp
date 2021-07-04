@@ -12,7 +12,7 @@ TArray<APlayableCharacter*> UCharacterSelectionWidget::GetAvailableCharacterList
 	return GameSocketThread::Runnable->availableCharacters;
 }
 
-void UCharacterSelectionWidget::RequestCharacterSelected(int32 characterId)
+void UCharacterSelectionWidget::RequestCharacterSelected(FString characterId)
 {
 	GameSocketThread::Runnable->SendPacket(new CharacterSelected(characterId));
 }
